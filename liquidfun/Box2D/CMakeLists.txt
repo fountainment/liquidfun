@@ -12,6 +12,7 @@ endif(UNIX)
 # Force gtest to compile against the shared CRT.
 if(MSVC)
   set(gtest_force_shared_crt ON CACHE INTERNAL "")
+  find_package (Threads)
 endif()
 # Disable build of freeglut demos.
 set(FREEGLUT_BUILD_DEMOS OFF CACHE INTERNAL "")
@@ -67,7 +68,7 @@ include("flags.cmake")
 
 set(C_FLAGS_WARNINGS "")
 if(MSVC)
-  set(C_FLAGS_WARNINGS "/W4 /WX")
+  # set(C_FLAGS_WARNINGS "/W4 /WX")
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX OR
        CMAKE_COMPILER_IS_CLANGXX)
   # Set the maximum warning level for gcc.
