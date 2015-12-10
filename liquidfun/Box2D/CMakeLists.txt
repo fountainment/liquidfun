@@ -23,8 +23,8 @@ option(BOX2D_INSTALL "Install Box2D libs, includes, and CMake scripts" ${BOX2D_I
 option(BOX2D_INSTALL_DOC "Install Box2D documentation" OFF)
 option(BOX2D_BUILD_SHARED "Build Box2D shared libraries" OFF)
 option(BOX2D_BUILD_STATIC "Build Box2D static libraries" ON)
-option(BOX2D_BUILD_EXAMPLES "Build Box2D examples" ON)
-option(BOX2D_BUILD_UNITTESTS "Build Box2D Unit Tests" ON)
+option(BOX2D_BUILD_EXAMPLES "Build Box2D examples" OFF)
+option(BOX2D_BUILD_UNITTESTS "Build Box2D Unit Tests" OFF)
 # NOTE: Code coverage only works on Linux & OSX.
 option(BOX2D_CODE_COVERAGE "Enable the code coverage build option." OFF)
 
@@ -116,27 +116,6 @@ endfunction(add_executable)
 # The Box2D library.
 add_subdirectory(Box2D)
 
-if(BOX2D_BUILD_EXAMPLES)
-  # HelloWorld console example.
-  add_subdirectory(HelloWorld)
-
-  # Testbed and dependencies.
-  find_package(OpenGL REQUIRED)
-  add_subdirectory(../../freeglut freeglut)
-  add_subdirectory(glui)
-  add_subdirectory(Testbed)
-endif(BOX2D_BUILD_EXAMPLES)
-
-if(BOX2D_BUILD_UNITTESTS)
-  add_subdirectory(../../googletest googletest)
-  add_subdirectory(Unittests)
-endif(BOX2D_BUILD_UNITTESTS)
-
-if(BOX2D_INSTALL_DOC)
-  install(DIRECTORY Documentation DESTINATION share/doc/Box2D PATTERN ".svn" EXCLUDE)
-endif(BOX2D_INSTALL_DOC)
-
-# Set the warning flags for all targets when using the Xcode generator.
 if(CMAKE_COMPILER_IS_CLANGXX)
   foreach(target ${ALL_TARGETS})
     set_target_properties(${target} PROPERTIES XCODE_ATTRIBUTE_WARNING_CFLAGS
